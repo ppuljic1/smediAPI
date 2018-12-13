@@ -5,7 +5,7 @@ namespace Traits;
 trait apiCalls 
 {
     
-    function call($headers, $optArray) {
+    function call($optArray) {
         // Get cURL resource
         $curl = curl_init();
 
@@ -21,14 +21,17 @@ trait apiCalls
             return array(
                 'success'   =>  false,
                 'message'   =>  $message,
+                'value'     =>  null,
             );
 
         } else {
+            // Close cURL
             curl_close($curl);
 
             return array(
                 'success'   =>  true,
                 'message'   =>  'success',
+                'value'     =>  $result,
             );
 
         }

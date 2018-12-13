@@ -31,50 +31,31 @@ class TwitterAPIClass implements API
 
     // Get API Bearer Token
     private function getAPIBarrerToken() {
-        // Get cURL resource
-        $curl = curl_init();
 
-        // Set cURL headers
-        $headers = array(
-            "POST /oauth2/token HTTP/1.1",
-            "Host: api.twitter.com",
-            "User-Agent: ppuljic twitter Application-only OAuth App v.1",
-            "Authorization: Basic " . $this->encoded_bearer_token,
-            "Content-Type: application/x-www-form-urlencoded;charset=UTF-8",
-        );
+        $curlCall = $this->call($this->setOptArrayApiBarrerToken());
+        
+        if ( !$curlCall['success'] ) {
 
-        // Set cURL options array
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.twitter.com/oauth2/token',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CONNECTTIMEOUT => 10,
-            CURLOPT_TIMEOUT => 10,
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_POST => 1,
-            CURLOPT_POSTFIELDS => "grant_type=client_credentials",
-        ));
+            // cURL call failed
+            return $this->formatOutput(false, $curlCall['message']);
 
-        if (!$result = curl_exec($curl)) {
-            // Close cURL
-            curl_close($curl);
-            // cURL call failed, do something .....
-            $message = 'cURL error string: "' . curl_error($curl) . '" <br> cURL error number: ' . curl_errno($curl);
-            return $this->formatOutput(false, $message);
         } else {
-            // Close cURL
-            curl_close($curl);
-            if (!empty($resultJSON = json_decode($result))) {
-                if ($resultJSON->token_type == 'bearer') {
+
+            if (!empty($resultJSON = json_decode($curlCall['value']))) {
+
+                if ($resultJSON->token_type == 'bearer') { // SUCCESS -> API Barrer token fetched
                     $message = 'API Barrer token successfully fetched!';
                     return $this->formatOutput(true, $message, $resultJSON->access_token);
-                } else {
+                } else { // FAIL -> did not recive barrer token type
                     $message = 'Request passed, but did not recive barrer token type!';
                     return $this->formatOutput(false, $message);
                 }
-            } else {
+
+            } else { // FAIL -> empty result returned
                 $message = 'Request passed, but empty result returned!';
                 return $this->formatOutput(false, $message);
             }
+
         }
 
 
@@ -145,6 +126,29 @@ class TwitterAPIClass implements API
         }
 
 
+    }
+
+    private function setOptArrayApiBarrerToken() {
+        // Set cURL headers
+        $headers = array(
+            "POST /oauth2/token HTTP/1.1",
+            "Host: api.twitter.com",
+            "User-Agent: ppuljic twitter Application-only OAuth App v.1",
+            "Authorization: Basic " . $this->encoded_bearer_token,
+            "Content-Type: application/x-www-form-urlencoded;charset=UTF-8",
+        );
+        // Set cURL options array
+        $optArray = array(
+            CURLOPT_URL => 'https://api.twitter.com/oauth2/token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POST => 1,
+            CURLOPT_POSTFIELDS => "grant_type=client_credentials",
+        );
+
+        return $optArray;
     }
     
 
