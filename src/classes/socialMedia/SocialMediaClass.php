@@ -1,15 +1,22 @@
 <?php
 
-class SocialMediaClass
+namespace Classes\SocialMedia;
+
+abstract class SocialMediaClass
 {
-    private $socialMediaPosts = array();
+    private $status;
+    private $message;
+    private $posts;
 
     function __construct() {
         
     }
 
-    public function getPosts() {
-        return json_encode($this->socialMediaPosts);
-    }
+    // GETTER
+    public function __get($property) {  
+        if (property_exists($this, $property)) {  
+            return $this->$property;  
+        }  
+    }  
 
 }

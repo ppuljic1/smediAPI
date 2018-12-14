@@ -5,7 +5,7 @@ namespace Traits;
 trait apiCalls 
 {
     
-    function call($optArray) {
+    function curlExec($optArray) {
         // Get cURL resource
         $curl = curl_init();
 

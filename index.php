@@ -2,16 +2,50 @@
 
 // code .....
 
-require 'src/classes/APIs/TwitterAPIClass.php';
+/**
+ * api testing
+ */
+// require_once 'src/classes/API/TwitterAPIClass.php';
+// require_once 'src/classes/API/InstagramAPIClass.php';
+// use Classes\API\TwitterAPIClass;
+// use Classes\API\InstagramAPIClass;
 
-use Classes\API\TwitterAPIClass;
+/**
+ * social media objects testing
+ */
+// require_once 'src/classes/socialMedia/TwitterClass.php';
+// require_once 'src/classes/socialMedia/InstagramClass.php';
+// use Classes\SocialMedia\TwitterClass;
+// use Classes\SocialMedia\InstagramClass;
 
-$consumer_key = urlencode('n3ST0sYNYBWGOozU28ZAEfubV');
-$consumer_secret = urlencode('COiVfWxwImk21ius062fA4FAmq1tmXmjGVVSJAxosHzjlkTkgY');
+/**
+ * constants testing
+ */
+// require_once $_SERVER['DOCUMENT_ROOT'] .'/src/settings/defineKeys.php';
+// use Settings\DefineKeys;
 
-$x = new TwitterAPIClass($consumer_key, $consumer_secret);
+/**
+ * Social Media Posts Handler testing
+ */
+require_once 'src/classes/handler/SocialMediaPostsClass.php';
+use Classes\Handler\SocialMediaPostsClass;
 
-$x = $x->getTweets();
-// var_dump($x);
-$x = json_decode($x);
-var_dump($x->value);
+
+
+// Twitter test
+// $consumer_key = urlencode('n3ST0sYNYBWGOozU28ZAEfubV');
+// $consumer_secret = urlencode('COiVfWxwImk21ius062fA4FAmq1tmXmjGVVSJAxosHzjlkTkgY');
+// $twitter = new TwitterClass($consumer_key, $consumer_secret);
+// var_dump($twitter->posts);
+
+// Instagram test
+// $access_token = '9690936317.1677ed0.ca1cfbe8435a4e37b5acf365788878f0';
+// $instagram = new InstagramClass($access_token);
+// var_dump($instagram->posts);
+
+// Constants test
+// var_dump(TWITTER_API['consumer_key']);
+
+// Social Media Posts Handler test
+$handler = new SocialMediaPostsClass();
+echo $handler->getPosts(array('twitter', 'instagram'));
