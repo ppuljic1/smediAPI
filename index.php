@@ -33,15 +33,12 @@ use Classes\Handler\SocialMediaPostsClass;
 
 
 // Twitter test
-// $consumer_key = urlencode('n3ST0sYNYBWGOozU28ZAEfubV');
-// $consumer_secret = urlencode('COiVfWxwImk21ius062fA4FAmq1tmXmjGVVSJAxosHzjlkTkgY');
-// $twitter = new TwitterClass($consumer_key, $consumer_secret);
-// var_dump($twitter->posts);
+// $twitter = new TwitterAPIClass();
+// var_dump(json_decode($twitter->getPosts()));
 
 // Instagram test
-// $access_token = '9690936317.1677ed0.ca1cfbe8435a4e37b5acf365788878f0';
-// $instagram = new InstagramClass($access_token);
-// var_dump($instagram->posts);
+// $instagram = new InstagramAPIClass();
+// var_dump(json_decode($instagram->getPosts()));
 
 // Constants test
 // var_dump(TWITTER_API['consumer_key']);

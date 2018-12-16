@@ -14,7 +14,7 @@ class InstagramAPIClass extends SocialMediaAPIClass
         $apiResult = null;
         
         $curlCall = $this->curlExec($this->setOptArrayGetPosts(INSTAGRAM_API['access_token']));
-    
+
         if ( !$curlCall['success'] ) {
             
             // cURL call failed
@@ -33,10 +33,11 @@ class InstagramAPIClass extends SocialMediaAPIClass
 
                     // Store results
                     $apiResult[] = array(
-                        'type' => 'instagram',
-                        'created_at' => date('m/d/Y', $post->created_time),
-                        'text' => $postText,
-                        'url' => $post->link,
+                        'type'          =>  'instagram',
+                        'created_at'    =>  date('m/d/Y', $post->created_time),
+                        'text'          =>  $postText,
+                        'url'           =>  $post->link,
+                        'image'         =>  $post->images->standard_resolution->url,
                     );
                 }
                 return $this->formatOutput(true, 'Instagram posts successfully fetched!', $apiResult);

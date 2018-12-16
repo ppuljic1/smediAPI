@@ -53,7 +53,7 @@ class TwitterAPIClass extends SocialMediaAPIClass
         if( $this->readOutput('status', $accessToken) ) {
 
             $curlCall = $this->curlExec($this->setOptArrayGetPosts($accessToken));
-    
+
             if ( !$curlCall['success'] ) {
                 
                 // cURL call failed
@@ -65,13 +65,21 @@ class TwitterAPIClass extends SocialMediaAPIClass
                     // Tweets fetched successfully
                     foreach ($tweets as $tweet) {
                         $tweetURL = "https://twitter.com/statuses/$tweet->id_str";
-                        
+
+                        // Check if tweet has an image
+                        // Note to self: put in separate function, in parent, every api class should have hasImage() methode
+                        $tweetImage = '';
+                        if( property_exists($tweet->entities, 'media') ) {
+                            $tweetImage = $tweet->entities->media[0]->media_url;
+                        }
+
                         // Store results
                         $apiResult[] = array(
-                            'type' => 'twitter',
-                            'created_at' => $tweet->created_at,
-                            'text' => $tweet->full_text,
-                            'url' => $tweetURL,
+                            'type'          =>  'twitter',
+                            'created_at'    =>  date('m/d/Y', strtotime($tweet->created_at)),
+                            'text'          =>  $tweet->full_text,
+                            'url'           =>  $tweetURL,
+                            'image'         =>  $tweetImage,
                         );
                     }
                     return $this->formatOutput(true, 'Tweets successfully fetched!', $apiResult);
