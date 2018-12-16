@@ -45,4 +45,4 @@ use Classes\Handler\SocialMediaPostsClass;
 
 // Social Media Posts Handler test
 $handler = new SocialMediaPostsClass();
-echo $handler->getPosts(array('twitter', 'instagram'));
+echo $handler->getPosts(array('twitter', 'instagram', 'facebook'));
