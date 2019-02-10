@@ -145,7 +145,37 @@ class TwitterAPIClass extends SocialMediaAPIClass
 
         return $optArray;
     }
-    
+
+    private function setOptArrayTwitterScrap($twitterURL) {
+        // CURL Request URL
+        $request_url = $twitterURL;
+
+        // Set cURL headers
+        $headers = array(
+            "GET /1.1/statuses/user_timeline.json?screen_name=TTestbeast HTTP/1.1",
+            "Host: api.twitter.com",
+            "User-Agent: ppuljic twitter Application-only OAuth App v.1",
+            "Authorization: Bearer " . $this->readOutput('value', $accessToken),
+            "Content-Type: application/json",
+        );
+
+        // Set cURL options array
+        $optArray = array(
+            CURLOPT_CUSTOMREQUEST  =>"GET",
+            CURLOPT_HEADER         => false,
+            CURLOPT_POST           =>false,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_URL => $request_url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true, 
+            CURLOPT_CONNECTTIMEOUT => 120,
+            CURLOPT_TIMEOUT => 120,
+            CURLOPT_USERAGENT      =>$_SERVER['HTTP_USER_AGENT'],
+            CURLOPT_MAXREDIRS      => 50,       
+            CURLOPT_HTTPHEADER => $headers,
+        );
+
+        return $optArray;
+    }
 
 }
-

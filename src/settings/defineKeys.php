@@ -12,5 +12,7 @@ define('INSTAGRAM_API', array(
 ));
 
 define('FACEBOOK_API', array(
-    0
+    // privremeni, vrijedi 2mj
+    'access_token'          =>      'EAADsbyXl7HMBAO5IzEPUinVA6GFt0JYW1GpW1TnlwEIJYQkWhbeiW7nhw7i6Sg1iuSM7dhx3Xd9r8W9X8g1oGpleiMgN0Mpn2g9xB8TngEZBJ2dsMnYtwJ37vH6k0C40nlcLVt3fECx9teZB2fF63NZAUT3quwZD',
+    'group_id'              =>  '202294623984578'
 ));
